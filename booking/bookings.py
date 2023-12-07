@@ -2,13 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
 import booking.constants as const
+import time
 
 class Booking(webdriver.Chrome):
     def __init__(self, driver_path="/usr/local/bin/chromedriver", teardown=False):
         self.driver_path = driver_path
         self.teardown = teardown
         super(Booking, self).__init__(executable_path=driver_path)
-        self.implicitly_wait(15)
+        self.implicitly_wait(100)
 
     def __enter__(self):
         return self
@@ -19,7 +20,6 @@ class Booking(webdriver.Chrome):
 
     def land_first_page(self):
         self.get(const.BASE_URL)
-        print(self)
 
     def remove_banner(self):
         try:
@@ -38,3 +38,12 @@ class Booking(webdriver.Chrome):
 
         except Exception as e:
             print(f"Error: {e}")
+
+    def set_destination(self, place_to_go) : 
+        search_field = self.find_element(By.ID, ':re:')
+        search_field.clear()
+        search_field.send_keys(place_to_go)
+        time.sleep(1)
+
+        first_result = self.find_element(By.ID, 'autocomplete-result-0')
+        first_result.click()
