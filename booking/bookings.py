@@ -55,7 +55,7 @@ class Booking(webdriver.Chrome):
         check_out_element = self.find_element(By.XPATH, f"//*[@aria-label='{check_out_date}']")
         check_out_element.click()
 
-    def set_travellers(self, number_of_adults = 1): 
+    def set_adults(self, number_of_adults = 1):
         traveller_element = self.find_element(By.XPATH, "//*[@data-testid='occupancy-config']")
         traveller_element.click()
 
@@ -77,3 +77,7 @@ class Booking(webdriver.Chrome):
         # The _ just means that the iterator is not being used in the loop
         for _ in range(number_of_adults - 1):
             increase_adults_button.click()
+
+    def click_search_button(self):
+        search_button = self.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+        search_button.click()
