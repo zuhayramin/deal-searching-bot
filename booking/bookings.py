@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import os
 import booking.constants as const
 import time
 
@@ -81,3 +80,15 @@ class Booking(webdriver.Chrome):
     def click_search_button(self):
         search_button = self.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
         search_button.click()
+
+
+    def apply_filtration(self, *star_values):
+        print("Start filtration...")
+        star_filtration_box = self.find_element(By.XPATH, '//*[@data-filters-group="class"]')
+        print("Got the group ready...")
+        star_child_elements = star_filtration_box.find_elements(By.CSS_SELECTOR, "*")
+        print("Getting Serious")
+        for star_value in star_values:
+            for star in star_child_elements:
+                if str(star.get_attribute("innerHTML")).strip() == f"{star_value} stars" :
+                    star.click()
