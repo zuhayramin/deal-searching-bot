@@ -7,4 +7,4 @@ with Booking() as bot:
     bot.change_currency("USD")
     bot.set_destination('New York')
     bot.travel_dates('12 December 2023', '8 January 2024')
-    bot.set_travellers(5)
+    bot.set_travellers(10)
