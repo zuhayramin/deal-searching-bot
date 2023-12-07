@@ -92,3 +92,14 @@ class Booking(webdriver.Chrome):
             for star in star_child_elements:
                 if str(star.get_attribute("innerHTML")).strip() == f"{star_value} stars" :
                     star.click()
+
+    def sort_by_highest_ratings(self):
+        sort_menu = self.find_element(By.XPATH, '//button[@data-testid="sorters-dropdown-trigger"]')
+        sort_menu.click()
+
+        try:
+            sort_lowest_price = self.find_element(By.XPATH, '//button[@data-id="price"]')
+            sort_lowest_price.click()
+        except:
+            sort_highest_ratings = self.find_element(By.XPATH, '//button[@data-id="class"]')
+            sort_highest_ratings.click()
