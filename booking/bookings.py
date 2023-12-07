@@ -47,3 +47,26 @@ class Booking(webdriver.Chrome):
 
         first_result = self.find_element(By.ID, 'autocomplete-result-0')
         first_result.click()
+
+    def travel_dates(self, check_in_date, check_out_date):
+        check_in_element = self.find_element(By.XPATH, f"//*[@aria-label='{check_in_date}']")
+        check_in_element.click()
+
+        check_out_element = self.find_element(By.XPATH, f"//*[@aria-label='{check_out_date}']")
+        check_out_element.click()
+
+    def set_travellers(self, number_of_adults = 1): 
+        traveller_element = self.find_element(By.XPATH, "//*[@data-testid='occupancy-config']")
+        traveller_element.click()
+        
+        # increase_adults_button = self.find_element(By.XPATH, "//input[@id='group_adults']/following-sibling::div/button[@class='f4d78af12a']")
+
+        while True:
+            decrease_adults_button = self.find_element(By.XPATH, "//input[@id='group_adults']/following-sibling::div[@class='f4878764f1']/following-sibling::div[@class='bfb38641b0']/descendant::button[@class='a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 e91c91fa93']")
+            decrease_adults_button.click()
+
+            # Exit loop if number of adults reaches 1
+            adults_value_element = self.find_element(By.ID, "group_adults")
+            adults_value = adults_value_element.get_attribute('value')
+            if int(adults_value) == 1:
+                break
