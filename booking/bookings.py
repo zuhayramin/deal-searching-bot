@@ -107,5 +107,5 @@ class Booking(webdriver.Chrome):
 
     def report(self):
         parent_element = self.find_element(By.CLASS_NAME, 'd4924c9e74')
-        report = BookingReport(parent_element)
-        report.pull_titles()
+        report = BookingReport(self, parent_element)
+        print(report.pull_deal_attributes())
