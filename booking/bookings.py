@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from booking.report import BookingReport
 import booking.constants as const
 import time
 
@@ -93,7 +94,7 @@ class Booking(webdriver.Chrome):
                 if str(star.get_attribute("innerHTML")).strip() == f"{star_value} stars" :
                     star.click()
 
-    def sort_by_highest_ratings(self):
+    def sort_results(self):
         sort_menu = self.find_element(By.XPATH, '//button[@data-testid="sorters-dropdown-trigger"]')
         sort_menu.click()
 
@@ -103,3 +104,8 @@ class Booking(webdriver.Chrome):
         except:
             sort_highest_ratings = self.find_element(By.XPATH, '//button[@data-id="class"]')
             sort_highest_ratings.click()
+
+    def report(self):
+        parent_element = self.find_element(By.CLASS_NAME, 'd4924c9e74')
+        report = BookingReport(parent_element)
+        report.pull_titles()

@@ -10,7 +10,10 @@ with Booking() as bot:
     bot.set_adults(1)
     bot.click_search_button()
     # bot.apply_filtration(3,4,5)
-    bot.sort_by_highest_ratings()
+    bot.sort_results()
+    # A workaround so that our bot can collect the updated data
+    bot.refresh()
+    bot.report()
     input("Press Enter to close the browser...")
 
     bot.quit()
