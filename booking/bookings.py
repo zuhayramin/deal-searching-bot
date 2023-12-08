@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from booking.report import BookingReport
 import booking.constants as const
 import time
+from prettytable import PrettyTable
 
 class Booking(webdriver.Chrome):
     def __init__(self, driver_path="/usr/local/bin/chromedriver", teardown=False):
@@ -108,4 +109,8 @@ class Booking(webdriver.Chrome):
     def report(self):
         parent_element = self.find_element(By.CLASS_NAME, 'd4924c9e74')
         report = BookingReport(self, parent_element)
-        print(report.pull_deal_attributes())
+        table = PrettyTable(
+            field_names=['Hotel Name', 'Hotel Price']
+        )
+        table.add_rows(report.pull_deal_attributes())
+        print(table)
